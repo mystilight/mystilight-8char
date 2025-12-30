@@ -1,6 +1,6 @@
 {
   "name": "mystilight-8char",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A JavaScript library for Chinese Eight Characters (BaZi) calculation and analysis",
   "main": "dist/index.js",
   "types": "index.d.ts",
