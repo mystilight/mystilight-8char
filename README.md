@@ -29,10 +29,9 @@ npm install mystilight-8char
 
 ### 基本使用
 ```javascript
-const { getCurrentEightCharJSON } = require('mystilight-8char');
-
+import paipan from 'mystilight-8char';
 // 获取当前八字分析
-const result = getCurrentEightCharJSON({
+const result = paipan.getCurrentEightCharJSON({
   year: 1990,    // 出生年
   month: 5,      // 出生月
   day: 15,       // 出生日
@@ -43,15 +42,6 @@ const result = getCurrentEightCharJSON({
 });
 
 console.log(result);
-```
-
-### 从八字反推日期
-```javascript
-const { fromBaZi } = require('mystilight-8char');
-
-// 从八字反推可能的出生日期
-const dates = fromBaZi('甲子', '丙寅', '戊辰', '庚午');
-console.log(dates);
 ```
 
 ## API 文档
