@@ -136,44 +136,9 @@ console.log(dates);
 }
 ```
 
-## 开发构建
-
-### 安装依赖
-```bash
-npm install
-```
-
-### 构建项目
-```bash
-# 标准构建
-npm run build
-
-# 压缩构建
-npm run build:min
-```
-
 ### 运行测试
 ```bash
 npm test
-```
-
-## 项目结构
-
-```
-pure-paipan/
-├── analysis/          # 分析模块
-│   ├── ganzhi.js     # 干支分析
-│   ├── shensha.js    # 神煞分析
-│   └── index.js      # 主分析逻辑
-├── data/             # 数据文件
-│   ├── ganRelation.js # 天干关系
-│   ├── zhiRelation.js # 地支关系
-│   └── wuxingPowerConfig.json # 五行配置
-├── lunar-javascript/ # 农历计算库
-├── test/             # 测试文件
-├── index.js          # 主入口文件
-├── package.json      # 项目配置
-└── README.md         # 说明文档
 ```
 
 ## 技术特点
@@ -183,11 +148,6 @@ pure-paipan/
 - **模块化设计** - 易于扩展和维护
 - **完整测试** - 确保计算准确性
 - **TypeScript支持** - 提供类型定义
-
-## 八字流派说明
-
-- **流派1**: 传统排盘方法
-- **流派2**: 现代精确算法（默认）
 
 ## 注意事项
 
