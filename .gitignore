@@ -1,0 +1,4 @@
+# Ignore generated outputs
+output/
+node_modules
+dist/

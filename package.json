@@ -1,0 +1,27 @@
+{
+  "name": "mystilight-8char",
+  "version": "1.0.0",
+  "description": "A JavaScript library for Chinese Eight Characters (BaZi) calculation and analysis",
+  "main": "dist/index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "node test/index.test.js"
+  },
+  "keywords": ["bazi", "eight-characters", "chinese-astrology", "fortune-telling", "命理", "八字"],
+  "author": "Mystilight",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mystilight/mystilight-8char"
+  },
+  "homepage": "https://github.com/mystilight/mystilight-8char#readme",
+  "bugs": {
+    "url": "https://github.com/mystilight/mystilight-8char/issues"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.11"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}

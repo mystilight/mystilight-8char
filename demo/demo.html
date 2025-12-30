@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mystilight-8char 八字库演示</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .info-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .info-section h2 {
+            color: #2980b9;
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f4fd;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        .error {
+            background-color: #fde8e8;
+            border-left-color: #e74c3c;
+            color: #c0392b;
+        }
+        .code {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+        .pillar {
+            display: inline-block;
+            margin: 0 10px;
+            text-align: center;
+        }
+        .pillar .gan, .pillar .zhi {
+            font-size: 24px;
+            font-weight: bold;
+            display: block;
+        }
+        .pillar .gan {
+            color: #e74c3c;
+        }
+        .pillar .zhi {
+            color: #3498db;
+        }
+        .pillar-label {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>mystilight-8char 八字库演示</h1>
+        
+        <div class="info-section">
+            <h2>基本信息</h2>
+            <div class="code" id="basicInfo">正在加载库信息...</div>
+        </div>
+
+        <div class="info-section">
+            <h2>八字计算演示</h2>
+            <form id="baziForm">
+                <div class="form-group">
+                    <label for="year">出生年份：</label>
+                    <input type="number" id="year" value="1990" min="1900" max="2100">
+                </div>
+                <div class="form-group">
+                    <label for="month">出生月份：</label>
+                    <input type="number" id="month" value="1" min="1" max="12">
+                </div>
+                <div class="form-group">
+                    <label for="day">出生日期：</label>
+                    <input type="number" id="day" value="1" min="1" max="31">
+                </div>
+                <div class="form-group">
+                    <label for="hour">出生时辰：</label>
+                    <select id="hour">
+                        <option value="0">子时 (23:00-00:59)</option>
+                        <option value="1">丑时 (01:00-02:59)</option>
+                        <option value="3">寅时 (03:00-04:59)</option>
+                        <option value="5">卯时 (05:00-06:59)</option>
+                        <option value="7">辰时 (07:00-08:59)</option>
+                        <option value="9">巳时 (09:00-10:59)</option>
+                        <option value="11">午时 (11:00-12:59)</option>
+                        <option value="13">未时 (13:00-14:59)</option>
+                        <option value="15">申时 (15:00-16:59)</option>
+                        <option value="17">酉时 (17:00-18:59)</option>
+                        <option value="19">戌时 (19:00-20:59)</option>
+                        <option value="21">亥时 (21:00-22:59)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="gender">性别：</label>
+                    <select id="gender">
+                        <option value="1">男</option>
+                        <option value="0">女</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sect">八字流派：</label>
+                    <select id="sect">
+                        <option value="1">流派1</option>
+                        <option value="2" selected>流派2</option>
+                    </select>
+                </div>
+                <button type="button" onclick="calculateBazi()">计算八字</button>
+            </form>
+            
+            <div id="result" class="result" style="display: none;">
+                <h3>计算结果：</h3>
+                <div id="pillars"></div>
+                <div id="details"></div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>使用示例</h2>
+            <div class="code">
+// 基本使用
+const result = mystilight8char.getCurrentEightCharJSON({
+    year: 1990,
+    month: 1,
+    day: 1,
+    hour: 0,
+    gender: 1,
+    sect: 2
+});
+
+console.log(result);
+            </div>
+        </div>
+    </div>
+
+    <script src="mystilight-8char.min.js"></script>
+    <script>
+        // 页面加载完成后显示库信息
+        document.addEventListener('DOMContentLoaded', function() {
+            displayLibraryInfo();
+        });
+
+        function displayLibraryInfo() {
+            const basicInfo = document.getElementById('basicInfo');
+            
+            if (typeof mystilight8char !== 'undefined') {
+                const info = `
+库名称: mystilight-8char
+版本: ${mystilight8char.version || '1.0.0'}
+可用方法:
+- getCurrentEightCharJSON() - 获取当前八字信息
+- fromBaZi() - 从八字反推日期
+- Lunar - 农历相关功能
+
+全局变量: window.mystilight8char
+                `;
+                basicInfo.textContent = info;
+            } else {
+                basicInfo.textContent = '错误: mystilight8char 未加载成功';
+                basicInfo.className = 'code error';
+            }
+        }
+
+        function calculateBazi() {
+            const year = parseInt(document.getElementById('year').value);
+            const month = parseInt(document.getElementById('month').value);
+            const day = parseInt(document.getElementById('day').value);
+            const hour = parseInt(document.getElementById('hour').value);
+            const gender = parseInt(document.getElementById('gender').value);
+            const sect = parseInt(document.getElementById('sect').value);
+
+            if (!year || !month || !day) {
+                alert('请填写完整的出生日期');
+                return;
+            }
+
+            try {
+                const result = mystilight8char.getCurrentEightCharJSON({
+                    year: year,
+                    month: month,
+                    day: day,
+                    hour: hour,
+                    gender: gender,
+                    sect: sect
+                });
+
+                displayResult(result);
+            } catch (error) {
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = `<div class="error">计算错误: ${error.message}</div>`;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        function displayResult(result) {
+            const resultDiv = document.getElementById('result');
+            const pillarsDiv = document.getElementById('pillars');
+            const detailsDiv = document.getElementById('details');
+
+            // 显示四柱
+            if (result.pillars) {
+                let pillarsHtml = '<h4>四柱:</h4><div>';
+                ['year', 'month', 'day', 'hour'].forEach(pillar => {
+                    if (result.pillars[pillar]) {
+                        pillarsHtml += `
+                            <div class="pillar">
+                                <span class="pillar-label">${pillar}</span>
+                                <span class="gan">${result.pillars[pillar].gan}</span>
+                                <span class="zhi">${result.pillars[pillar].zhi}</span>
+                            </div>
+                        `;
+                    }
+                });
+                pillarsHtml += '</div>';
+                pillarsDiv.innerHTML = pillarsHtml;
+            }
+
+            // 显示详细信息
+            let detailsHtml = '<h4>详细信息:</h4>';
+            detailsHtml += `<p><strong>性别:</strong> ${result.gender}</p>`;
+            detailsHtml += `<p><strong>流派:</strong> ${result.sect}</p>`;
+            detailsHtml += `<p><strong>输入日期:</strong> ${result.input.year}-${result.input.month}-${result.input.day} ${result.input.hour}时</p>`;
+            detailsHtml += `<p><strong>当前日期:</strong> ${result.current.year}-${result.current.month}-${result.current.day}</p>`;
+            
+            if (result.meta) {
+                detailsHtml += `<p><strong>版本:</strong> ${result.meta.version}</p>`;
+                detailsHtml += `<p><strong>平台:</strong> ${result.meta.platform}</p>`;
+            }
+
+            detailsDiv.innerHTML = detailsHtml;
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

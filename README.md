@@ -1,0 +1,216 @@
+# Mystilight 8Char - 八字排盘库
+
+一个基于JavaScript的八字排盘库，提供完整的八字命理计算和分析功能。
+
+## 功能特性
+
+### 核心功能
+- ✅ **八字排盘** - 根据出生年月日时计算四柱八字
+- ✅ **大运流年** - 自动计算大运、流年、小运
+- ✅ **十神分析** - 完整的十神关系分析
+- ✅ **五行力量** - 五行力量计算和平衡分析
+- ✅ **神煞系统** - 天乙贵人、月德贵人等神煞标注
+- ✅ **渊海子平** - 月令、太岁、身强分等传统分析
+
+### 高级功能
+- ✅ **当前运势** - 聚焦当前年份的大运/流年/小运分析
+- ✅ **流月流日** - 精确到月和日的运势分析
+- ✅ **命宫身宫** - 命宫、身宫、胎元、胎息计算
+- ✅ **天干地支关系** - 五合、六合、相冲等关系分析
+- ✅ **性格分析** - 基于八字的人格特质分析
+
+## 安装使用
+
+### 安装
+```bash
+npm install mystilight-8char
+```
+
+### 基本使用
+```javascript
+const { getCurrentEightCharJSON } = require('mystilight-8char');
+
+// 获取当前八字分析
+const result = getCurrentEightCharJSON({
+  year: 1990,    // 出生年
+  month: 5,      // 出生月
+  day: 15,       // 出生日
+  hour: 14,      // 出生时
+  minute: 30,    // 出生分
+  sect: 2,       // 八字流派 (1或2)
+  gender: 1      // 性别 (1男，0女)
+});
+
+console.log(result);
+```
+
+### 从八字反推日期
+```javascript
+const { fromBaZi } = require('mystilight-8char');
+
+// 从八字反推可能的出生日期
+const dates = fromBaZi('甲子', '丙寅', '戊辰', '庚午');
+console.log(dates);
+```
+
+## API 文档
+
+### getCurrentEightCharJSON(options)
+获取当前八字分析的完整JSON结果。
+
+**参数:**
+- `year` (number): 出生年
+- `month` (number): 出生月
+- `day` (number): 出生日
+- `hour` (number, 可选): 出生时，默认0
+- `minute` (number, 可选): 出生分，默认0
+- `second` (number, 可选): 出生秒，默认0
+- `sect` (number, 可选): 八字流派(1或2)，默认2
+- `gender` (number, 可选): 性别(1男，0女)，默认1
+- `currentYear` (number, 可选): 当前年，默认系统年
+- `currentMonth` (number, 可选): 当前月，默认系统月
+- `currentDay` (number, 可选): 当前日，默认系统日
+
+**返回值:** 包含完整八字分析的对象
+
+### fromBaZi(yearGanZhi, monthGanZhi, dayGanZhi, timeGanZhi, sect, baseYear)
+从八字反推可能的出生日期。
+
+**参数:**
+- `yearGanZhi` (string): 年柱
+- `monthGanZhi` (string): 月柱
+- `dayGanZhi` (string): 日柱
+- `timeGanZhi` (string): 时柱
+- `sect` (number, 可选): 八字流派
+- `baseYear` (number, 可选): 基准年
+
+**返回值:** 可能的出生日期数组
+
+## 输出结构示例
+
+```json
+{
+  "input": {
+    "year": 1990,
+    "month": 5,
+    "day": 15,
+    "hour": 14,
+    "minute": 30
+  },
+  "current": {
+    "year": 2025,
+    "month": 1,
+    "day": 1
+  },
+  "pillars": {
+    "year": {
+      "value": "庚午",
+      "gan": "庚",
+      "zhi": "午",
+      "hideGan": ["丁", "己"],
+      "wuXing": "金火",
+      "naYin": "路旁土",
+      "shiShenGan": "正财",
+      "shiShenZhi": ["劫财", "伤官"]
+    }
+    // ... 月柱、日柱、时柱
+  },
+  "wuXingPower": {
+    "木": 14.95,
+    "火": 30.84,
+    "土": 42.99,
+    "金": 8.41,
+    "水": 2.8
+  },
+  "currentYun": {
+    "daYun": {
+      "ganZhi": "丙寅",
+      "shiShen": "劫财"
+    },
+    "liuNian": {
+      "year": 2025,
+      "ganZhi": "乙巳",
+      "shiShen": "偏印"
+    }
+  }
+}
+```
+
+## 开发构建
+
+### 安装依赖
+```bash
+npm install
+```
+
+### 构建项目
+```bash
+# 标准构建
+npm run build
+
+# 压缩构建
+npm run build:min
+```
+
+### 运行测试
+```bash
+npm test
+```
+
+## 项目结构
+
+```
+pure-paipan/
+├── analysis/          # 分析模块
+│   ├── ganzhi.js     # 干支分析
+│   ├── shensha.js    # 神煞分析
+│   └── index.js      # 主分析逻辑
+├── data/             # 数据文件
+│   ├── ganRelation.js # 天干关系
+│   ├── zhiRelation.js # 地支关系
+│   └── wuxingPowerConfig.json # 五行配置
+├── lunar-javascript/ # 农历计算库
+├── test/             # 测试文件
+├── index.js          # 主入口文件
+├── package.json      # 项目配置
+└── README.md         # 说明文档
+```
+
+## 技术特点
+
+- **纯JavaScript** - 无外部依赖，轻量级实现
+- **高性能** - 优化的算法和数据结构
+- **模块化设计** - 易于扩展和维护
+- **完整测试** - 确保计算准确性
+- **TypeScript支持** - 提供类型定义
+
+## 八字流派说明
+
+- **流派1**: 传统排盘方法
+- **流派2**: 现代精确算法（默认）
+
+## 注意事项
+
+1. 本库仅供学习和研究使用
+2. 命理分析结果仅供参考，不应作为决策依据
+3. 计算结果可能存在微小误差，建议交叉验证
+
+## 贡献指南
+
+欢迎提交Issue和Pull Request来改进这个项目。
+
+## 许可证
+
+ISC License
+
+## 更新日志
+
+### v1.0.0
+- 初始版本发布
+- 完整的八字排盘功能
+- 大运流年计算
+- 神煞系统集成
+
+---
+
+*本项目基于传统八字命理学原理开发，计算结果仅供学术研究参考。*
