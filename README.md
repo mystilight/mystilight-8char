@@ -1,9 +1,14 @@
 # 玄烛命理 - 八字排盘库
 
 首个基于纯JavaScript无依赖的八字排盘库，也是首个具有完整的神煞系统的八字排盘库，完全根据渊海子平原文发表的八字排盘原理，提供完整的八字命理计算和分析功能
-完全功能使用可以在这个网页中看到：https://8char.space
+完全功能使用可以在这个网页中看到：
 
-作者B站账号：玄烛排盘，可以关注我的账户
+https://8char.space
+页面预览
+<img width="309" height="669" alt="image" src="https://github.com/user-attachments/assets/c8848720-6c57-41b1-bd98-3872106f8b20" />
+
+作者B站账号：玄烛排盘，人气低迷求关注~
+
 https://space.bilibili.com/3546581452196143
 
 ## 功能特性
